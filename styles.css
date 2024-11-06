@@ -47,6 +47,23 @@ p {
     font-size: 1.2em;
 }
 
+#startButton {
+    position: absolute;
+    bottom: 20px; /* ปรับให้ปุ่มอยู่ด้านล่างสุด */
+    width: 100%;
+    padding: 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 20px;
+    text-align: center;
+}
+
+#startButton:hover {
+    background-color: #45a049;
+}
 /* กล่องของปุ่มที่ใช้ flexbox เพื่อจัดปุ่มซ้ายขวา */
 .mic-container {
     width: 20%; /* ทำให้กล่องกว้าง 100% ของพื้นที่ */

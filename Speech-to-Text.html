@@ -9,52 +9,66 @@
 </head>
 <body>
   
-        <div class="card">
-          <h1 id="heading">เปลี่ยนเสียงเป็นข้อความ</h1>
-          <div class="texts"></div>  
-          <div class="dropdown">
-            <button class="dropbtn"><i class="fas fa-bars"></i></button>
-            <div class="dropdown-content">
-                <a href="Text-to-Speech.html">Text-to-Speech</a> <!-- ลิงก์ไปยัง main.html -->
-                <a href="Speech-to-Text.html">Speech-to-Text</a> <!-- ลิงก์ Speech-to-Text -->
-                <a href="main.html">Home</a> 
+  <div class="card">
+    <h1 class="container-top">เปลี่ยนเสียงเป็นข้อความ</h1>
+    <div class="texts"></div>  
+    <div class="dropdown">
+        <button class="dropbtn"><i class="fas fa-bars"></i></button>
+        <div class="dropdown-content">
+            <a href="Text-to-Speech.html">Text-to-Speech</a>
+            <a href="Speech-to-Text.html">Speech-to-Text</a>
+            <a href="main.html">Home</a>
+        </div>
+    </div>
 
-            </div>
-        </div>
-        </div>
-        <script >
-                  // main.js
+    <!-- เพิ่มปุ่ม Start เพื่อเริ่มการรับฟังเสียง -->
+    <button id="startButton">เริ่มการรับฟังเสียง</button>
+</div>
+
+    <script>
+        // main.js
         let text = document.querySelector('.texts');
+        let startButton = document.getElementById('startButton');
+        let recognition;
 
+        // ตรวจสอบว่า browser รองรับ SpeechRecognition หรือไม่
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        const recognition = new SpeechRecognition();
-        recognition.lang = 'th-TH';
-        recognition.continuous = true;
-        recognition.interimResults = true;
+        if (SpeechRecognition) {
+            recognition = new SpeechRecognition();
+            recognition.lang = 'th-TH';
+            recognition.continuous = true;
+            recognition.interimResults = true;
+        } else {
+            alert('การรับฟังเสียงไม่รองรับในเบราว์เซอร์นี้');
+        }
 
         let p = document.createElement('p');
 
+        // ฟังก์ชันเมื่อเริ่มการรับฟังเสียง
         recognition.addEventListener("result", (event) => {
             const texts = Array.from(event.results)
-            .map(result=>result[0])
-            .map(result=>result.transcript)
-            .join(' ');
+                .map(result => result[0])
+                .map(result => result.transcript)
+                .join(' ');
 
             console.log(texts);
             p.innerText = texts;
             text.appendChild(p);
         });
 
-        recognition.start();
+        // เพิ่มการคลิกปุ่มเริ่มเพื่อเริ่มการฟังเสียง
+        startButton.addEventListener('click', () => {
+            recognition.start();
+            startButton.disabled = true;  // ปิดปุ่มเริ่มเมื่อการฟังเริ่มต้น
+            startButton.innerText = "กำลังรับฟัง...";
+        });
 
         function speakText() {
-          const text = document.getElementById("heading").innerText;
-          const speech = new SpeechSynthesisUtterance(text);
-          window.speechSynthesis.speak(speech);
+            const text = document.getElementById("heading").innerText;
+            const speech = new SpeechSynthesisUtterance(text);
+            window.speechSynthesis.speak(speech);
         }
-
-
-        </script>
+    </script>
        
 </body>
 </html>
