@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to Speech</title>
+</head>
+<body>
+    <h1>แปลงข้อความเป็นเสียง</h1>
+    <textarea id="textInput" rows="4" cols="50" placeholder="พิมพ์ข้อความที่ต้องการให้แปลงเป็นเสียง..."></textarea><br><br>
+    <button onclick="speakText()">แปลงข้อความเป็นเสียง</button>
+
+    <script>
+        function speakText() {
+            const text = document.getElementById("textInput").value;
+            const speech = new SpeechSynthesisUtterance();
+            speech.text = text;
+            speech.lang = "th-TH"; // ตั้งค่าเป็นภาษาไทย
+            speech.volume = 1; // ระดับเสียง (0 - 1)
+            speech.rate = 1; // ความเร็วการอ่าน (0.1 - 10)
+            speech.pitch = 1; // ระดับเสียงสูงต่ำ (0 - 2)
+
+            window.speechSynthesis.speak(speech);
+        }
+    </script>
+</body>
+</html>
