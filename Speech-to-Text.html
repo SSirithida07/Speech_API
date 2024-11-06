@@ -21,54 +21,77 @@
         </div>
     </div>
 
-    <!-- เพิ่มปุ่ม Start เพื่อเริ่มการรับฟังเสียง -->
-    <button id="startButton">เริ่มการรับฟังเสียง</button>
+    <div class="button-container">
+      <button id="startButton">เริ่มการรับฟังเสียง</button>
+      <button id="stopButton" disabled>หยุดการรับฟัง</button>
+  </div>
 </div>
 
-    <script>
-        // main.js
-        let text = document.querySelector('.texts');
-        let startButton = document.getElementById('startButton');
-        let recognition;
+<script>
+    // main.js
+    let text = document.querySelector('.texts');
+    let startButton = document.getElementById('startButton');
+    let stopButton = document.getElementById('stopButton');
+    let recognition;
 
-        // ตรวจสอบว่า browser รองรับ SpeechRecognition หรือไม่
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        if (SpeechRecognition) {
-            recognition = new SpeechRecognition();
-            recognition.lang = 'th-TH';
-            recognition.continuous = true;
-            recognition.interimResults = true;
-        } else {
-            alert('การรับฟังเสียงไม่รองรับในเบราว์เซอร์นี้');
-        }
+    // ตรวจสอบว่า browser รองรับ SpeechRecognition หรือไม่
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+        recognition = new SpeechRecognition();
+        recognition.lang = 'th-TH';
+        recognition.continuous = true;
+        recognition.interimResults = true;
+    } else {
+        alert('การรับฟังเสียงไม่รองรับในเบราว์เซอร์นี้');
+    }
 
-        let p = document.createElement('p');
+    let p = document.createElement('p');
+    let silenceTimeout;
 
-        // ฟังก์ชันเมื่อเริ่มการรับฟังเสียง
-        recognition.addEventListener("result", (event) => {
-            const texts = Array.from(event.results)
-                .map(result => result[0])
-                .map(result => result.transcript)
-                .join(' ');
+    // ฟังก์ชันเมื่อเริ่มการรับฟังเสียง
+    recognition.addEventListener("result", (event) => {
+        const texts = Array.from(event.results)
+            .map(result => result[0])
+            .map(result => result.transcript)
+            .join(' ');
 
-            console.log(texts);
-            p.innerText = texts;
-            text.appendChild(p);
-        });
+        console.log(texts);
+        p.innerText = texts;
+        text.appendChild(p);
 
-        // เพิ่มการคลิกปุ่มเริ่มเพื่อเริ่มการฟังเสียง
-        startButton.addEventListener('click', () => {
-            recognition.start();
-            startButton.disabled = true;  // ปิดปุ่มเริ่มเมื่อการฟังเริ่มต้น
-            startButton.innerText = "กำลังรับฟัง...";
-        });
+        // รีเซ็ตเวลาหยุดการฟังเมื่อมีเสียงใหม่
+        clearTimeout(silenceTimeout);
+        silenceTimeout = setTimeout(() => {
+            console.log("หยุดการฟังเนื่องจากไม่มีเสียง");
+            recognition.stop();
+            startButton.disabled = false;
+            startButton.innerText = "เริ่มการรับฟังเสียง";
+            stopButton.disabled = true;  // ปิดปุ่มหยุด
+        }, 10000); // ตั้งเวลาเป็น 10 วินาที
+    });
 
-        function speakText() {
-            const text = document.getElementById("heading").innerText;
-            const speech = new SpeechSynthesisUtterance(text);
-            window.speechSynthesis.speak(speech);
-        }
-    </script>
+    // เพิ่มการคลิกปุ่มเริ่มเพื่อเริ่มการฟังเสียง
+    startButton.addEventListener('click', () => {
+        recognition.start();
+        startButton.disabled = true;  // ปิดปุ่มเริ่มเมื่อการฟังเริ่มต้น
+        startButton.innerText = "กำลังรับฟัง...";
+        stopButton.disabled = false;  // เปิดปุ่มหยุด
+    });
+
+    // เพิ่มฟังก์ชันหยุดการรับฟังเสียง
+    stopButton.addEventListener('click', () => {
+        recognition.stop();
+        startButton.disabled = false;
+        startButton.innerText = "เริ่มการรับฟังเสียง";
+        stopButton.disabled = true;  // ปิดปุ่มหยุดหลังหยุดการฟัง
+    });
+
+    function speakText() {
+        const text = document.getElementById("heading").innerText;
+        const speech = new SpeechSynthesisUtterance(text);
+        window.speechSynthesis.speak(speech);
+    }
+</script>
        
 </body>
 </html>
