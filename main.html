@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css"> 
+    <title>Centered Card</title>
+
+</head>
+<body>
+    <div class="card">
+        <h1>Speech-to-Text & Text-to-Speech</h1>
+        <p>*** รองรับภาษาไทย ***</p>
+
+        <div class="mic-container">
+            <!-- ใช้ <a> tag เพื่อเปลี่ยนหน้า -->
+            <a href="Speech-to-Text.html">
+                <button class="mic-button">
+                    <i class="fas fa-microphone"></i> <!-- ใช้ class ที่ถูกต้อง -->
+                </button>
+            </a>
+            <p>|</p>
+            <a href="Text-to-Speech.html">
+                <button class="mic-button">
+                    <i class="fas fa-file-alt"></i> <!-- ใช้ class ไอคอนที่ถูกต้อง -->
+                </button>
+            </a>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn"><i class="fas fa-bars"></i></button>
+            <div class="dropdown-content">
+                <a href="Text-to-Speech.html">Text-to-Speech</a> <!-- ลิงก์ไปยัง main.html -->
+                <a href="Speech-to-Text.html">Speech-to-Text</a> <!-- ลิงก์ Speech-to-Text -->
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

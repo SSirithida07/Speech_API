@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Speech-to-Text</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css"> 
+</head>
+<body>
+  
+        <div class="card">
+          <h1 id="heading">เปลี่ยนเสียงเป็นข้อความ</h1>
+          <div class="texts"></div>  
+          <div class="dropdown">
+            <button class="dropbtn"><i class="fas fa-bars"></i></button>
+            <div class="dropdown-content">
+                <a href="Text-to-Speech.html">Text-to-Speech</a> <!-- ลิงก์ไปยัง main.html -->
+                <a href="Speech-to-Text.html">Speech-to-Text</a> <!-- ลิงก์ Speech-to-Text -->
+                <a href="main.html">Home</a> 
+
+            </div>
+        </div>
+        </div>
+        <script >
+                  // main.js
+        let text = document.querySelector('.texts');
+
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'th-TH';
+        recognition.continuous = true;
+        recognition.interimResults = true;
+
+        let p = document.createElement('p');
+
+        recognition.addEventListener("result", (event) => {
+            const texts = Array.from(event.results)
+            .map(result=>result[0])
+            .map(result=>result.transcript)
+            .join(' ');
+
+            console.log(texts);
+            p.innerText = texts;
+            text.appendChild(p);
+        });
+
+        recognition.start();
+
+        function speakText() {
+          const text = document.getElementById("heading").innerText;
+          const speech = new SpeechSynthesisUtterance(text);
+          window.speechSynthesis.speak(speech);
+        }
+
+
+        </script>
+       
+</body>
+</html>

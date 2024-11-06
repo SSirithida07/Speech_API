@@ -1,0 +1,210 @@
+/* styles.css */
+
+/* พื้นหลังสีเหลือง */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-color: #ffb300;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+}
+
+/* การ์ดสีขาว */
+.card {
+    position: relative; /* ทำให้การตั้งตำแหน่ง absolute ใน .card เป็นไปได้ */
+    width: 100%;
+    max-width: 1000px;
+    height: 700px;
+    padding: 80px;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3);
+    color: #333;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.card .container-top {
+    position: absolute;
+    top: 30px; /* ปรับให้ container-top ลงมาจากบนสุด 30px */
+}
+
+h1 {
+    margin: 0;
+    font-size: 2em;
+    color: #333;
+}
+
+p {
+    color: #555;
+    font-size: 1.2em;
+}
+
+/* กล่องของปุ่มที่ใช้ flexbox เพื่อจัดปุ่มซ้ายขวา */
+.mic-container {
+    width: 20%; /* ทำให้กล่องกว้าง 100% ของพื้นที่ */
+    display: flex;
+    justify-content: space-between; /* ทำให้ปุ่มทั้งสองห่างกันอย่างเท่าเทียม */
+    gap: 20px; /* เพิ่มระยะห่างระหว่างปุ่ม */
+    margin-top: 20px;
+}
+
+/* ปุ่มไอคอนไมค์ */
+.mic-button {
+    background-color: #347928;
+    border: none;
+    color: white;
+    padding: 15px 20px;
+    font-size: 24px;
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s;
+    flex-shrink: 0; /* ป้องกันไม่ให้ปุ่มถูกย่อ */
+    width: 100%; /* เพิ่มความกว้างของปุ่ม */
+}
+
+.mic-button:hover {
+    background-color: #45a049;
+}
+
+.mic-button i {
+    font-size: 30px;
+}
+
+/* ปรับสไตล์ Textarea */
+#textInput {
+    width: 100%;
+    padding: 20px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    resize: vertical; /* จำกัดการขยายเฉพาะแนวตั้ง */
+    min-height: 450px; /* กำหนดความสูงขั้นต่ำ */
+    max-height: 500px; /* กำหนดความสูงสูงสุด */
+    line-height: 1.5; /* เพิ่มระยะห่างระหว่างบรรทัด */
+    background-color: #f9f9f9; /* เปลี่ยนสีพื้นหลังเพื่อให้ดูสบายตา */
+    box-sizing: border-box; /* คำนวณ padding และ border ในขนาดของ element */
+    transition: border-color 0.3s ease; /* เพิ่มเอฟเฟกต์เมื่อมีการโฟกัส */
+}
+
+/* เมื่อ textarea อยู่ในสถานะ focus */
+#textInput:focus {
+    border-color: #4CAF50; /* เปลี่ยนสี border เมื่อมีการคลิก */
+    outline: none; /* ไม่ให้มีเส้นขอบเมื่อคลิก */
+    background-color: #ffffff; /* เปลี่ยนพื้นหลังเมื่อโฟกัส */
+}
+
+
+
+/* กล่องของปุ่มที่ใช้ flexbox เพื่อจัดปุ่มซ้ายขวา */
+.btn-container {
+    display: flex;
+    justify-content: space-between; /* ทำให้ปุ่มทั้งสองห่างกันอย่างเท่าเทียม */
+    gap: 20px; /* เพิ่มระยะห่างระหว่างปุ่ม */
+    margin-top: 20px;
+}
+
+/* ปุ่ม "แปลงข้อความเป็นเสียง" */
+button {
+    background-color: #4CAF50;
+    color: white;
+    font-size: 18px;
+    padding:  25px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 400px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* เมื่อ hover บนปุ่ม */
+button:hover {
+    background-color: #45a049;
+    transform: scale(1.05); /* เพิ่มขนาดเมื่อ hover */
+}
+
+/* ปุ่ม "รีเซ็ตข้อความ" */
+.speech-button {
+    background-color: #45a049;
+    margin-top: 15px;
+}
+
+/* เมื่อ hover บนปุ่มรีเซ็ต */
+.speech-button:hover {
+    background-color: #63b567;
+    transform: scale(1.05);
+}
+
+
+/* ปุ่ม "รีเซ็ตข้อความ" */
+.reset-button {
+    background-color: #f44336;
+    margin-top: 15px;
+}
+
+/* เมื่อ hover บนปุ่มรีเซ็ต */
+.reset-button:hover {
+    background-color: #e53935;
+    transform: scale(1.05);
+}
+
+/* เมนูดรอปดาว */
+.dropdown {
+    position: absolute;
+    top: 20px;
+    right: 20px; /* ปรับตำแหน่งให้ไปทางขวาสุด */
+    display: inline-block;
+}
+
+.dropbtn {
+    background-color: #4CAF50; /* สีปุ่ม */
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropbtn:hover {
+    background-color: #45a049; /* เมื่อ hover ปุ่ม */
+}
+
+/* เมนูดรอปดาว */
+.dropdown-content {
+    display: none; /* ซ่อนเมนู */
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+/* เมนูในดรอปดาว */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* เมื่อ hover ลิงค์ในเมนู */
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+/* แสดงเมนูดรอปดาวเมื่อ hover ปุ่ม */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
