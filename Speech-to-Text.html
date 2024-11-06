@@ -21,17 +21,21 @@
         </div>
     </div>
 
+    <!-- เพิ่มปุ่ม Start และ Stop อยู่ใน container เดียวกัน -->
     <div class="button-container">
-      <button id="startButton">เริ่มการรับฟังเสียง</button>
-      <button id="stopButton" disabled>หยุดการรับฟัง</button>
-  </div>
+        <button id="startButton">เริ่มการรับฟังเสียง</button>
+        <button id="stopButton" disabled>หยุดการรับฟัง</button>
+    </div>
+
+    <!-- เพิ่ม input เพื่อแสดงข้อความ -->
+    <textarea id="textInput" rows="5" placeholder=""></textarea>
 </div>
 
 <script>
-    // main.js
     let text = document.querySelector('.texts');
     let startButton = document.getElementById('startButton');
     let stopButton = document.getElementById('stopButton');
+    let textInput = document.getElementById('textInput'); // เพิ่มตัวแปรสำหรับ textInput
     let recognition;
 
     // ตรวจสอบว่า browser รองรับ SpeechRecognition หรือไม่
@@ -45,7 +49,6 @@
         alert('การรับฟังเสียงไม่รองรับในเบราว์เซอร์นี้');
     }
 
-    let p = document.createElement('p');
     let silenceTimeout;
 
     // ฟังก์ชันเมื่อเริ่มการรับฟังเสียง
@@ -55,9 +58,8 @@
             .map(result => result.transcript)
             .join(' ');
 
-        console.log(texts);
-        p.innerText = texts;
-        text.appendChild(p);
+        // แสดงข้อความใน textInput ให้แค่ข้อความล่าสุด
+        textInput.value = texts; // อัปเดตข้อความล่าสุดใน textInput
 
         // รีเซ็ตเวลาหยุดการฟังเมื่อมีเสียงใหม่
         clearTimeout(silenceTimeout);
